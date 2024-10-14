@@ -1,0 +1,110 @@
+<div class="bg-gray-900 min-h-screen py-10">
+    <div class="max-w-lg mx-auto bg-gray-800 p-8 rounded-lg shadow-lg">
+        <h2 class="text-2xl font-bold text-white mb-4">Reactivos: Básicos</h2>
+        <hr class="border-b-2 border-gray-600 mb-6">
+
+        <form [formGroup]="myForm" autocomplete="off" (ngSubmit)="onSave()" class="space-y-6">
+            <!-- Campo de producto -->
+            <div>
+                <label class="block text-sm font-medium text-white mb-1">Producto</label>
+                <input type="text"
+                       class="w-full border border-gray-600 bg-gray-700 text-white rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                       placeholder="Nombre del producto"
+                       formControlName="name"
+                       >
+                <span
+                *ngIf="myForm.controls['name'].getError('required') && myForm.controls['name'].touched"
+                class="text-sm text-red-500 mt-1">
+                    <!-- Mensaje de error -->
+                    Este campo no es requerido
+                </span>
+
+                <span
+                *ngIf="myForm.controls['name'].getError('minlength')&& myForm.controls['name'].touched "
+                class="text-sm text-red-500 mt-1">
+                  <!-- Mensaje de error -->
+                  Este requiere mas de tres letras
+              </span>
+            </div>
+
+            <!-- Campo de precio -->
+            <div>
+                <label class="block text-sm font-medium text-white mb-1">Precio</label>
+                <input type="number"
+                        formControlName="price"
+                       class="w-full border border-gray-600 bg-gray-700 text-white rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                       placeholder="Precio del producto">
+                <span
+                *ngIf="isValidField('price')"
+                class="text-sm text-red-500 mt-1">
+                {{getFieldError('price')}}
+              </span>
+            </div>
+
+            <!-- Campo de existencias -->
+            <div>
+                <label class="block text-sm font-medium text-white mb-1">Existencias</label>
+                <input type="number"
+                        formControlName="inStorage"
+                       class="w-full border border-gray-600 bg-gray-700 text-white rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                       placeholder="Existencias del producto">
+                <span
+                  *ngIf="isValidField('inStorage')"
+                  class="text-sm text-red-500 mt-1">
+                  {{getFieldError('inStorage')}}
+                </span>
+            </div>
+
+            <!-- Botón Guardar -->
+            <div class="flex justify-end">
+                <button type="submit"
+                        class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg">
+                    Guardar
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Información de Validación -->
+    <div class="mt-8 space-y-4">
+        <div class="bg-gray-800 text-white p-4 rounded-lg shadow-sm border border-gray-600">
+            <span class="font-semibold">Valid</span>
+            <pre class="bg-gray-900 p-2 rounded-lg text-white">{{  myForm.valid| json }}</pre>
+        </div>
+
+        <div class="bg-gray-800 text-white p-4 rounded-lg shadow-sm border border-gray-600">
+            <span class="font-semibold">Pristine</span>
+            <pre class="bg-gray-900 p-2 rounded-lg text-white">{{ myForm.pristine| json }}</pre>
+        </div>
+
+        <div class="bg-gray-800 text-white p-4 rounded-lg shadow-sm border border-gray-600">
+            <span class="font-semibold">Touched</span>
+            <pre class="bg-gray-900 p-2 rounded-lg text-white">{{ myForm.touched| json }}</pre>
+        </div>
+
+        <div class="bg-gray-800 text-white p-4 rounded-lg shadow-sm border border-gray-600">
+            <span class="font-semibold">Value</span>
+            <pre class="bg-gray-900 p-2 rounded-lg text-white">{{ myForm.value| json }}</pre>
+        </div>
+
+        <div class="bg-gray-800 text-white p-4 rounded-lg shadow-sm border border-gray-600">
+            <span class="font-semibold">Precio</span>
+            <pre class="bg-gray-900 p-2 rounded-lg text-white">{{ myForm.controls['price'].value | json }}</pre>
+        </div>
+
+        <div class="bg-gray-800 text-white p-4 rounded-lg shadow-sm border border-gray-600">
+          <span class="font-semibold">Precio - Errors</span>
+          <pre class="bg-gray-900 p-2 rounded-lg text-white">{{ myForm.controls['price'].errors | json }}</pre>
+      </div>
+
+        <div class="bg-gray-800 text-white p-4 rounded-lg shadow-sm border border-gray-600">
+            <span class="font-semibold">Producto</span>
+            <pre class="bg-gray-900 p-2 rounded-lg text-white">{{ myForm.controls['name'].value | json }}</pre>
+        </div>
+
+        <div class="bg-gray-800 text-white p-4 rounded-lg shadow-sm border border-gray-600">
+          <span class="font-semibold">Producto - Errors </span>
+          <pre class="bg-gray-900 p-2 rounded-lg text-white">{{ myForm.controls['name'].errors | json }}</pre>
+      </div>
+    </div>
+</div>

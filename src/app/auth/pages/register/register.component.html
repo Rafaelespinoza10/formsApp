@@ -1,0 +1,133 @@
+<div class="bg-gray-900 min-h-screen py-10">
+  <div class="max-w-lg mx-auto bg-gray-800 p-8 rounded-lg shadow-lg">
+      <h2 class="text-2xl font-bold text-white mb-4">Validaciones Reactivas</h2>
+      <hr class="border-b-2 border-gray-600 mb-6">
+
+      <form autocomplete="off" class="space-y-6" [formGroup]="myForm" (ngSubmit)="onSubmit()">
+          <!-- Nombre -->
+          <div>
+              <label class="block text-sm font-medium text-white mb-1">Nombre</label>
+              <input type="text"
+                     class="form-input w-full px-3 py-2 rounded-md bg-gray-700 text-white border border-gray-600 focus:border-blue-500 focus:ring focus:ring-blue-500"
+                     placeholder="Nombre del usuario"
+                     formControlName="name"
+                     >
+              <span
+              class="text-sm text-red-500 mt-1"
+                *ngIf="isValidField('name')"
+              >Debe de ser en formato de nombre y apellido</span>
+          </div>
+
+          <!-- Email -->
+          <div>
+              <label class="block text-sm font-medium text-white mb-1">Email</label>
+              <input type="email"
+                      formControlName="email"
+                     class="form-input w-full px-3 py-2 rounded-md bg-gray-700 text-white border border-gray-600 focus:border-blue-500 focus:ring focus:ring-blue-500"
+                     placeholder="Email del usuario">
+              <span
+                  class="text-sm text-red-500 mt-1"
+                  *ngIf="isValidField('email')"
+                  >mensaje de error del email</span>
+          </div>
+
+          <!-- Username -->
+          <div>
+              <label class="block text-sm font-medium text-white mb-1">Username</label>
+              <input type="text"
+                      formControlName="userName"
+                     class="form-input w-full px-3 py-2 rounded-md bg-gray-700 text-white border border-gray-600 focus:border-blue-500 focus:ring focus:ring-blue-500"
+                     placeholder="Nombre código del usuario">
+              <span
+                  class="text-sm text-red-500 mt-1"
+                  *ngIf="isValidField('userName')"
+                  >El username no puede ser Strider</span>
+          </div>
+
+          <!-- Password -->
+          <div>
+              <label class="block text-sm font-medium text-white mb-1">Password</label>
+              <input type="password"
+                     formControlName="password"
+                     class="form-input w-full px-3 py-2 rounded-md bg-gray-700 text-white border border-gray-600 focus:border-blue-500 focus:ring focus:ring-blue-500"
+                     placeholder="Password de su cuenta">
+              <span
+                  class="text-sm text-red-500 mt-1"
+                  *ngIf="isValidField('password')"
+                  >La contraseña debe de ser mayor de 6 caracteres.</span>
+          </div>
+
+          <!-- Confirmar Password -->
+          <div>
+              <label class="block text-sm font-medium text-white mb-1">Confirmar</label>
+              <input type="password"
+                    formControlName="confirmPassword"
+                     class="form-input w-full px-3 py-2 rounded-md bg-gray-700 text-white border border-gray-600 focus:border-blue-500 focus:ring focus:ring-blue-500"
+                     placeholder="Confirmar la contraseña">
+              <span
+                  class="text-sm text-red-500 mt-1"
+                  *ngIf="isValidField('confirmPassword')"
+                  >Las contraseñas deben de ser iguales</span>
+          </div>
+
+          <!-- Botón Crear -->
+          <div class="flex justify-end">
+              <button type="submit"
+                      class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg">
+                  Crear
+              </button>
+          </div>
+      </form>
+  </div>
+
+  <!-- Validaciones e información del formulario -->
+  <div class="mt-8 space-y-4">
+      <div class="bg-gray-800 text-white p-4 rounded-lg shadow-sm border border-gray-600">
+          <h2 class="font-semibold">Form Valid</h2>
+          <pre class="bg-gray-900 p-2 rounded-lg">{{ myForm.valid| json }}</pre>
+      </div>
+
+      <div class="bg-gray-800 text-white p-4 rounded-lg shadow-sm border border-gray-600">
+          <h2 class="font-semibold">Form Status</h2>
+          <pre class="bg-gray-900 p-2 rounded-lg">{{ myForm.status| json }}</pre>
+      </div>
+
+      <div class="bg-gray-800 text-white p-4 rounded-lg shadow-sm border border-gray-600">
+          <h2 class="font-semibold">Form Pending</h2>
+          <pre class="bg-gray-900 p-2 rounded-lg">{{ myForm.pending| json }}</pre>
+      </div>
+
+      <div class="bg-gray-800 text-white p-4 rounded-lg shadow-sm border border-gray-600">
+          <h2 class="font-semibold">Form Errors</h2>
+          <pre class="bg-gray-900 p-2 rounded-lg">{{ myForm.errors| json }}</pre>
+      </div>
+
+      <!-- Sección de cada campo individual -->
+      <div class="space-y-4">
+          <div class="bg-gray-800 text-white p-4 rounded-lg shadow-sm border border-gray-600">
+              <h5 class="font-semibold">Nombre</h5>
+              <pre class="bg-gray-900 p-2 rounded-lg">{{ myForm.controls['name'].errors| json }}</pre>
+          </div>
+
+          <div class="bg-gray-800 text-white p-4 rounded-lg shadow-sm border border-gray-600">
+              <h5 class="font-semibold">Email</h5>
+              <pre class="bg-gray-900 p-2 rounded-lg">{{ myForm.controls['email'].errors | json }}</pre>
+          </div>
+
+          <div class="bg-gray-800 text-white p-4 rounded-lg shadow-sm border border-gray-600">
+              <h5 class="font-semibold">Username</h5>
+              <pre class="bg-gray-900 p-2 rounded-lg">{{ myForm.controls['userName'].errors| json }}</pre>
+          </div>
+
+          <div class="bg-gray-800 text-white p-4 rounded-lg shadow-sm border border-gray-600">
+              <h5 class="font-semibold">Password</h5>
+              <pre class="bg-gray-900 p-2 rounded-lg">{{ myForm.controls['password'].value | json }}</pre>
+          </div>
+
+          <div class="bg-gray-800 text-white p-4 rounded-lg shadow-sm border border-gray-600">
+              <h5 class="font-semibold">Confirmar</h5>
+              <pre class="bg-gray-900 p-2 rounded-lg">{{ myForm.controls['confirmPassword'].errors | json }}</pre>
+          </div>
+      </div>
+  </div>
+</div>
